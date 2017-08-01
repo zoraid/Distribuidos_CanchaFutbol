@@ -13,7 +13,8 @@ namespace final
     {
 
         private List<Reserva> listaReserva =new List<Reserva>();
-       // private readonly DateTime FechaReserva;
+     
+
         public String ConsultarReserva(int clienteId )
              
            
@@ -28,6 +29,7 @@ namespace final
 
             //si la reserva existe
             else
+                //deberia salir la fecha de reservacion
               return String.Format("Usted tiene una reservacion para el dia: ") ;
             
 
