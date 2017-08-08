@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
@@ -11,20 +12,22 @@ namespace final
 
     public class ReservaService : IReservaService
     {
+        //guarda los datos en memoria del servidor
+        // private List<Reserva> listaReserva =new List<Reserva>();
 
-        private List<Reserva> listaReserva =new List<Reserva>();
-
-        //Reserva r = new Reserva();
+            //conectar con la bd, crear un bd que hereda del modelo
+        private bdFinal1Entities bd = new bdFinal1Entities();
 
         public String ConsultarReserva(int clienteId, DateTime FechaReserva)
-        //public String ConsultarReserva(int clienteId)
+        
         {
-            var reserva = listaReserva.FirstOrDefault(x=> x.ClienteId == clienteId);
-            //var fechaReserva = listaReserva.FirstOrDefault(x => x.FechaReserva == FechaReserva);
+           
+            var res = bd.T_Reservacion.Find(clienteId);
+           
 
             //si la reserva no existe
 
-            if (reserva == null)
+            if (res == null)
                return String.Format("No existe la Reserva");
 
 
@@ -38,17 +41,15 @@ namespace final
 
         public bool ReservarCupo(int clienteId, DateTime fechaReserva, int TelefonoCliente)
         {
-            var reserva = listaReserva.FirstOrDefault(x => x.FechaReserva == fechaReserva);
-            if (reserva == null)
+            //var res= bd.T_Reservacion.Find( fechaReserva);
+            if (fechaReserva == null)
             {
                 //si la reserva no existe
                 //se crea o agrega una nueva reserva
-                listaReserva.Add(new Reserva()
-                {
-                    ClienteId = clienteId,
-                    FechaReserva = fechaReserva,
-                    TelefonoCliente = TelefonoCliente
-                });
+                //res = new res()                
+                bd.T_Reservacion.Add( clienteId,  fechaReserva, TelefonoCliente );
+                bd.SaveChanges();
+                
                 return true;
             }
             else
