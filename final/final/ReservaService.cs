@@ -13,16 +13,17 @@ namespace final
     {
 
         private List<Reserva> listaReserva =new List<Reserva>();
-     
 
-        public String ConsultarReserva(int clienteId )
-             
-           
+        //Reserva r = new Reserva();
+
+        public String ConsultarReserva(int clienteId, DateTime FechaReserva)
+        //public String ConsultarReserva(int clienteId)
         {
-
             var reserva = listaReserva.FirstOrDefault(x=> x.ClienteId == clienteId);
+            //var fechaReserva = listaReserva.FirstOrDefault(x => x.FechaReserva == FechaReserva);
+
             //si la reserva no existe
-            
+
             if (reserva == null)
                return String.Format("No existe la Reserva");
 
@@ -30,20 +31,24 @@ namespace final
             //si la reserva existe
             else
                 //deberia salir la fecha de reservacion
-              return String.Format("Usted tiene una reservacion para el dia: ") ;
+              return String.Format("Usted tiene una reservacion para el dia:" +FechaReserva ) ;
             
 
         }
 
-        public bool ReservarCupo(int clienteId, DateTime FechaReserva, int TelefonoCliente)
+        public bool ReservarCupo(int clienteId, DateTime fechaReserva, int TelefonoCliente)
         {
-            var reserva = listaReserva.FirstOrDefault(x => x.FechaReserva == FechaReserva);
+            var reserva = listaReserva.FirstOrDefault(x => x.FechaReserva == fechaReserva);
             if (reserva == null)
             {
                 //si la reserva no existe
                 //se crea o agrega una nueva reserva
-                listaReserva.Add(new Reserva() { ClienteId = clienteId, FechaReserva = FechaReserva,
-                    TelefonoCliente = TelefonoCliente });
+                listaReserva.Add(new Reserva()
+                {
+                    ClienteId = clienteId,
+                    FechaReserva = fechaReserva,
+                    TelefonoCliente = TelefonoCliente
+                });
                 return true;
             }
             else
@@ -51,9 +56,12 @@ namespace final
 
                 //si yaexiste la reservacion
                 return false;
-                    }
-                }
             }
+        }
+
+
+
+    }
 
         
     

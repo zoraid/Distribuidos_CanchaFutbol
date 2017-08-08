@@ -13,10 +13,12 @@ namespace final
 
         [OperationContract]
         Boolean ReservarCupo(int clienteId, DateTime FechaReserva, int TelefonoCliente);
-          
+        //Boolean ReservarCupo(Reserva res);
+        
 
         [OperationContract]
-         String ConsultarReserva(int clienteId);
+        String ConsultarReserva(int clienteId, DateTime FechaReserva);
+        //String ConsultarReserva(int clienteId);
 
 
 
